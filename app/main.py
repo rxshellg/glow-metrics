@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.routes import products, ingredients, admin
 
 app = FastAPI(
     title="Glow Metrics API",
@@ -14,6 +15,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(products.router)
+app.include_router(ingredients.router)
+app.include_router(admin.router)
 
 @app.get("/")
 def read_root():
